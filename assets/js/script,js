@@ -1,0 +1,7 @@
+// script file for work day scheduler
+
+// let's start by defining some variables
+
+// targets the unordered list element
+var taskContainer = $("#timeBlockContainer");
+
