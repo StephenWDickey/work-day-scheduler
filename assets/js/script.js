@@ -24,7 +24,7 @@ var taskContainer = $(".container");
 // we will add current date into header section
 $("#currentDay").text(moment().format('dddd, MMMM Do'));
 
-var savedTasks = new Array();
+var savedTasks = [];
 
 //////////////////////////////////////////////////////////////
 
@@ -95,13 +95,7 @@ var createDiv = function() {
         icon.setAttribute("data-time-id", (i-9).toString());
 
 
-        try {
-            input.innerText = savedTasks.find( ({ timeID }) => timeID === (i-9).toString()).task;
-        }
-        catch {
-            input.innerText = "";
-        }
-
+        
 
 
         // we must append these elements to their respective containers
@@ -120,87 +114,46 @@ var createDiv = function() {
 
 //////////////////////////////////////////////////////////
 
-// add event listener to taskContainer element, the icon part
-// this will save our task in an array when we hit save button
-$(".fa-save").on("click", "i", function() {
-    // retrieves value of attribute
-    var timeID = $(this).attr("data-time-id");
-    var text = $("[data-input-time-id=${timeID}]").text();
-    // we pass the timeID and text through the savedTasks array
-    savedTasks(timeID, text);
-});
+
+    
+
+
+
+
 
 ////////////////////////////////////////////////////////////
 
-// event listener for taskContainer element
-// this will allow us to change input element text
-$(taskContainer).on("click", "input", function() {
 
-    
-    // make sure we trim any spaces from text entry
-    var text = $(this).text().trim();
-    // sets attribute of data-input-time-id to timeID
-    var timeID = $(this).attr("data-input-time-id", timeID)
-    // adds class to text area
-    var textInput = $("<textarea>").addClass($(this).attr("class")).val(text);
-    textInput.attr("data-input-time-id", timeID);
+createDiv();
 
-    
+
+//////////////////////////////////////////////////////////
+// event listeners!
+
+
+////////////////////////////////////////////////////////////
+
+
+$("input").focusout(function() {
+    $(this).textContent = $("input").text().trim();
 });
-
-/////////////////////////////////////////////////////////////////
-
-// when we 'unfocus'/'blur' the textarea then we replace content
-$(".container").on("blur", "textarea", function() {
-    // gets value of text area
-    var text = $(this).val();
-    // retrieves value of attribute data-input-time-id
-    var timeID = $(this).attr('data-input-time-id');
-
-    // recreates input element
-    var taskinput = $("<input>").addClass($(this).attr("class")).text(text);
     
-    // changes attribute of taskInput element
-    taskInput.attr("data-input-time-id", timeID)
 
-    // replace text with new content
-    $(this).replaceWith(taskInput);
-});
+var buttonHandler = function(event) {
+    event.preventDefault();
+    var input = $("input").val();
+    localStorage.setItem("savedTasks", input);
+};
+///////////////////////////////////////////
+
+// add event listener to taskContainer element, the icon part
+// this will save our task in an array when we hit save button
+// have to add this after we call createDiv function because elements
+// dont exist before that
+$(".saveBtn").on("click", buttonHandler);
 
 //////////////////////////////////////////////////////
 
 // this function will store saved tasks to localStorage
-function saveTasks(timeID, task) {
-    // try function will run expressions stated, catch will be for else
-    try {
-        var tempObj = savedTasks.find(x=> x.timeID === timeID);
-        tempObj.task = task;
-    }
-    catch {
-        var oTask = {};
-        oTask.timeID = timeID;
-        oTask.task = task;
-        // pushes data to array
-        savedTasks.push(oTask);
-    }
-    try {
-        localStorage.setItem("dailyTasks", JSON.stringify(savedTasks));
-    }
-    catch {
-        alert("Error, please try again.");
-    }
-    alert("task saved successfully");
-};
 
-////////////////////////////////////////////////////////////
 
-// this will load our saved tasks
-function loadTasks() {
-    if (localStorage.dailyTasks) {
-        savedTasks = JSON.parse(localStorage.getItem('dailyTasks'));
-    }
-};
-
-loadTasks();
-
-createDiv();
