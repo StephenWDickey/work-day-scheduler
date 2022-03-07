@@ -1,6 +1,6 @@
 # work-day-scheduler
 
-![screenshot of timed-quiz](./scheduler-screenshot.png)
+![screenshot of weekday-scheduler](./scheduler-screenshot.png)
 
 ## Description
 In this week's challenge we were tasked with created a weekday scheduler.
@@ -14,6 +14,6 @@ This page should store tasks in localStorage, and those tasks should also be ret
 ## Credits
 StephenWDickey
 GitHub page: https://github.com/StephenWDickey
-Deployment URL:
+Deployment URL: https://stephenwdickey.github.io/work-day-scheduler/
 
 Joseph Jepson - Coding Bootcamp tutor
