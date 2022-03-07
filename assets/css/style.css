@@ -70,3 +70,22 @@ body {
     transition: all .3s ease-in-out;
   }
 
+  .saveBtn:hover {
+    background-color: darkblue;
+  }
+
+  .future:hover {
+    background-color: darkgreen;
+  }
+  
+  .past:hover {
+    background-color: darkslategrey;
+  }
+
+  .present:hover {
+    background-color: darkred;
+  }
+
+  .container {
+    padding-bottom: 40px;
+  }
