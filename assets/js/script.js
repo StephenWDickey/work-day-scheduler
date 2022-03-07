@@ -24,6 +24,7 @@ var taskContainer = $(".container");
 // we will add current date into header section
 $("#currentDay").text(moment().format('dddd, MMMM Do'));
 
+
 var savedTasks = [];
 
 //////////////////////////////////////////////////////////////
@@ -127,25 +128,33 @@ var createDiv = function() {
 createDiv();
 
 
-//////////////////////////////////////////////////////////
-// event listeners!
+
 
 
 ////////////////////////////////////////////////////////////
 
-
+// saves input info
 $("input").focusout(function() {
     $(this).textContent = $("input").text().trim();
 });
     
-
+// this function will store saved tasks to localStorage
 var buttonHandler = function(event) {
     event.preventDefault();
     var input = $("input").val();
-    localStorage.setItem("savedTasks", input);
+    localStorage.setItem("savedTasks", input);  
 };
 ///////////////////////////////////////////
 
+var retrieveStorage = function () {
+    var retrieval = localStorage.getItem("savedTasks");
+    $("input").textContent = retrieval;
+};
+
+retrieveStorage();
+
+
+//////////////////////////////////////////////////////////
 // add event listener to taskContainer element, the icon part
 // this will save our task in an array when we hit save button
 // have to add this after we call createDiv function because elements
@@ -154,6 +163,6 @@ $(".saveBtn").on("click", buttonHandler);
 
 //////////////////////////////////////////////////////
 
-// this function will store saved tasks to localStorage
+
 
 
